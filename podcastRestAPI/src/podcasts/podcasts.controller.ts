@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { PodcastsService } from './podcasts.service';
 import { Podcast } from './entities/podcast.entity';
+import { Episode } from './entities/episode.entity';
 
 @Controller('podcasts')
 export class PodcastsController {
@@ -39,5 +40,32 @@ export class PodcastsController {
   @Patch('/:id')
   patch(@Param('id') podcastId: string, @Body() updateData) {
     return this.podcastsService.update(podcastId, updateData);
+  }
+
+  @Get('/:id/episodes')
+  getAllEpisodes(@Param('id') podcastId: string): Episode[] {
+    return this.podcastsService.getAllEpisodes(podcastId);
+  }
+
+  @Post('/:id/episodes')
+  addEpisode(@Param('id') podcastId: string, @Body() episodeData) {
+    return this.podcastsService.addEpisode(podcastId, episodeData);
+  }
+
+  @Delete('/:id/episodes/:episodeId')
+  removeEpisode(
+    @Param('id') podcastId: string,
+    @Param('episodeId') episodeId: string,
+  ) {
+    return this.podcastsService.removeEpisode(podcastId, episodeId);
+  }
+
+  @Patch('/:id/episodes/:episodeId')
+  updateEpisode(
+    @Param('id') podcastId: string,
+    @Param('episodeId') episodeId: string,
+    @Body() updateData,
+  ) {
+    return this.podcastsService.updateEpisode(podcastId, episodeId, updateData);
   }
 }

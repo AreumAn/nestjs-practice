@@ -1,1 +1,5 @@
-export class Episode {}
+export class Episode {
+  id: number;
+  episodeId: number;
+  title: string;
+}

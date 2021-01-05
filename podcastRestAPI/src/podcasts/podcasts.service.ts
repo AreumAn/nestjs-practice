@@ -1,3 +1,4 @@
+import { Episode } from './entities/episode.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Podcast } from './entities/podcast.entity';
 
@@ -34,5 +35,30 @@ export class PodcastsService {
     const podcast = this.getOne(id);
     this.deleteOne(id);
     this.podcasts.push({ ...podcast, ...updateData });
+  }
+
+  getAllEpisodes(id: string): Episode[] {
+    return this.getOne(id).episodes;
+  }
+
+  addEpisode(id: string, episodeData) {
+    this.getOne(id).episodes.push({
+      episodeId: this.getOne(id).episodes.length + 1,
+      ...episodeData,
+    });
+  }
+
+  removeEpisode(id: string, episodeId: string) {
+    this.getOne(id).episodes = this.getOne(id).episodes.filter(
+      (episode) => episode.episodeId !== +episodeId,
+    );
+  }
+
+  updateEpisode(id: string, episodeId: string, updateData) {
+    const episode = this.getAllEpisodes(id).filter(
+      (episode) => episode.episodeId === +episodeId,
+    )[0];
+    this.removeEpisode(id, episodeId);
+    this.getAllEpisodes(id).push({ ...episode, ...updateData });
   }
 }
