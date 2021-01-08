@@ -1,3 +1,3 @@
 # nestjs-practices
 
-- create rest api with nexstjs
+- create rest api with nestjs(podcast)
