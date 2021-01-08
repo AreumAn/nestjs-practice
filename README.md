@@ -1,3 +1,3 @@
-# nextjs-practices
+# netjs-practices
 
-- create rest api with nextjs
+- create rest api with nexstjs
